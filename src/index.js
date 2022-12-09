@@ -1,16 +1,23 @@
-import { getArgsMap } from "./utils/getArgsMap.js";
+import os from "node:os";
+
 import { CommandsHandler } from "./commands/CommandsHandler.js";
 import { AppLogger } from "./utils/AppLogger.js";
+import { AppState } from "./utils/AppState.js";
+import { printPrompt } from "./utils/printPrompt.js";
 
-const data = getArgsMap({ username: "Unknown User" });
 const logger = new AppLogger();
-const commandsHandler = new CommandsHandler({ logger, data });
+const state = new AppState();
+const commandsHandler = new CommandsHandler({ logger, state });
 
-logger.log(`\nWelcome to the File Manager, ${data.username ?? "User"}!\n`);
+// initialization
+process.chdir(os.homedir());
+logger.log(`\nWelcome to the File Manager, ${state.username ?? "User"}!\n`);
+printPrompt({ logger, state });
 
 process.stdin.on("data", function (data) {
-  const command = data.toString("utf8");
+  const command = data.toString("utf8").trim();
   commandsHandler.handle(command);
+  printPrompt({ logger, state });
 });
 
 process.on("SIGINT", () => {

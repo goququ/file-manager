@@ -2,14 +2,17 @@ import { ERRORS_MAP } from "../consts.js";
 import { COMMANDS_MAP } from "./index.js";
 
 export class CommandsHandler {
-  constructor({ logger, commands = COMMANDS_MAP, data = {} }) {
+  constructor({ logger, commands = COMMANDS_MAP, state }) {
+    if (!state) {
+      throw new Error("No state provided");
+    }
     this.logger = logger || console;
     this.commands = commands;
-    this.data = data;
+    this.state = state;
   }
 
   _getCommandFunc(command = "") {
-    const commandName = command.split(" ")[0].replaceAll(/[\W]/g, "");
+    const commandName = command.trim().split(" ")[0].replaceAll(/[\W]/g, "");
     const func = this.commands[commandName];
 
     return func;
@@ -26,9 +29,14 @@ export class CommandsHandler {
     try {
       func({
         logger: this.logger,
-        data: this.data,
+        state: this.state,
+        command,
       });
     } catch (err) {
+      console.log(
+        "🚀 ~ file: CommandsHandler.js:36 ~ CommandsHandler ~ handle ~ err",
+        err
+      );
       this.logger.error(ERRORS_MAP.failed);
     }
   }
