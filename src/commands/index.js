@@ -3,13 +3,14 @@ import { up } from "./list/up.js";
 import { cd } from "./list/cd.js";
 import { rn } from "./list/rn.js";
 import { ls } from "./list/ls.js";
+import { cat } from "./list/cat.js";
 
 export const COMMANDS_MAP = {
   exit,
   up,
   cd,
   ls,
-  cat: "",
+  cat,
   add: "",
   rn: "",
   cp: "",
