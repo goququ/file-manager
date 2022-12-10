@@ -17,7 +17,7 @@ export const cp = async ({ command }) => {
   source = getAbsolutePath(source);
   dest = getAbsolutePath(dest);
 
-  const sourceReadStream = fs.createReadStream(source);
+  const sourceReadStream = fs.createReadStream(source, { flags: "r" });
   const writableStream = fs.createWriteStream(dest, { flags: "wx" });
 
   sourceReadStream.pipe(writableStream);
