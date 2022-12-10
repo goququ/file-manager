@@ -11,11 +11,15 @@ const commandsHandler = new CommandsHandler({ logger, state });
 
 // initialization
 process.chdir(os.homedir());
-logger.log(`\nWelcome to the File Manager, ${state.username ?? "User"}!\n`);
+logger.log(`\nWelcome to the File Manager, ${state.username}!\n`);
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
+});
+
+rl.on("SIGINT", () => {
+  commandsHandler.handle(".exit");
 });
 
 const getQuestion = async () => {
