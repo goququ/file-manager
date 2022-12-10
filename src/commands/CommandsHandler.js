@@ -34,6 +34,10 @@ export class CommandsHandler {
         command,
       });
     } catch (err) {
+      console.log(
+        "🚀 ~ file: CommandsHandler.js:37 ~ CommandsHandler ~ handle ~ err",
+        err
+      );
       if (err instanceof AppError) {
         this.logger.error(err);
       } else {
