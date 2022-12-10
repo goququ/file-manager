@@ -1,7 +1,9 @@
 import os from "node:os";
 import { getArgsMap } from "./getArgsMap.js";
 
-const { username } = getArgsMap({ username: "Unknown User" });
+const { username } = getArgsMap(process.argv.slice(2), {
+  username: "Unknown User",
+});
 
 export class AppState {
   constructor() {

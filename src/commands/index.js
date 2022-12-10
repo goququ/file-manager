@@ -8,6 +8,7 @@ import { add } from "./list/add.js";
 import { cp } from "./list/cp.js";
 import { rm } from "./list/rm.js";
 import { mv } from "./list/mv.js";
+import { os } from "./list/os.js";
 
 export const COMMANDS_MAP = {
   exit,
@@ -20,7 +21,7 @@ export const COMMANDS_MAP = {
   cp,
   rm,
   mv,
-  os: "",
+  os,
   hash: "",
   compress: "",
   decompress: "",
