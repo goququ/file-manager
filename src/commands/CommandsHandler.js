@@ -33,10 +33,7 @@ export class CommandsHandler {
         command,
       });
     } catch (err) {
-      console.log(
-        "🚀 ~ file: CommandsHandler.js:36 ~ CommandsHandler ~ handle ~ err",
-        err
-      );
+      this.logger.error(err);
       this.logger.error(ERRORS_MAP.failed);
     }
   }
