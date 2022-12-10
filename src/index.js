@@ -25,7 +25,7 @@ You are currently in ${process.cwd()}
 `);
 
   const command = answer.toString("utf8").trim();
-  commandsHandler.handle(command);
+  await commandsHandler.handle(command);
 
   getQuestion();
 };

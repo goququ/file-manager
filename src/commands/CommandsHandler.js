@@ -1,4 +1,5 @@
-import { ERRORS_MAP } from "../consts.js";
+import { ERRORS_MAP } from "../utils/AppError.js";
+import { AppError } from "../utils/AppError.js";
 import { COMMANDS_MAP } from "./index.js";
 
 export class CommandsHandler {
@@ -18,7 +19,7 @@ export class CommandsHandler {
     return func;
   }
 
-  handle(command) {
+  async handle(command) {
     const func = this._getCommandFunc(command);
 
     if (!func) {
@@ -27,14 +28,17 @@ export class CommandsHandler {
     }
 
     try {
-      func({
+      await func({
         logger: this.logger,
         state: this.state,
         command,
       });
     } catch (err) {
-      this.logger.error(err);
-      this.logger.error(ERRORS_MAP.failed);
+      if (err instanceof AppError) {
+        this.logger.error(err);
+      } else {
+        this.logger.error(new AppError(ERRORS_MAP.failed));
+      }
     }
   }
 }

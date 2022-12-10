@@ -8,4 +8,5 @@ export class AppLogger {
 
   log = this.logger.log;
   error = this.logger.error;
+  table = this.logger.table;
 }
