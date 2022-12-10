@@ -4,6 +4,7 @@ import { cd } from "./list/cd.js";
 import { rn } from "./list/rn.js";
 import { ls } from "./list/ls.js";
 import { cat } from "./list/cat.js";
+import { add } from "./list/add.js";
 
 export const COMMANDS_MAP = {
   exit,
@@ -11,11 +12,10 @@ export const COMMANDS_MAP = {
   cd,
   ls,
   cat,
-  add: "",
-  rn: "",
+  add,
+  rn,
   cp: "",
   mv: "",
-  rn,
   os: "",
   hash: "",
   compress: "",
