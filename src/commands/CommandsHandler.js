@@ -3,13 +3,13 @@ import { AppError } from "../utils/AppError.js";
 import { COMMANDS_MAP } from "./index.js";
 
 export class CommandsHandler {
-  constructor({ logger, commands = COMMANDS_MAP, state }) {
-    if (!state) {
-      throw new Error("No state provided");
+  constructor({ logger, commands = COMMANDS_MAP, data }) {
+    if (!data) {
+      throw new Error("No data provided");
     }
     this.logger = logger || console;
     this.commands = commands;
-    this.state = state;
+    this.data = data;
   }
 
   _getCommandFunc(command = "") {
@@ -30,14 +30,10 @@ export class CommandsHandler {
     try {
       await func({
         logger: this.logger,
-        state: this.state,
+        data: this.data,
         command,
       });
     } catch (err) {
-      console.log(
-        "🚀 ~ file: CommandsHandler.js:37 ~ CommandsHandler ~ handle ~ err",
-        err
-      );
       if (err instanceof AppError) {
         this.logger.error(err);
       } else {

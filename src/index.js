@@ -3,32 +3,35 @@ import * as readline from "node:readline/promises";
 
 import { CommandsHandler } from "./commands/CommandsHandler.js";
 import { AppLogger } from "./utils/AppLogger.js";
-import { AppState } from "./utils/AppState.js";
+import { getArgsMap } from "./utils/getArgsMap.js";
+import { sanitizeCommand } from "./utils/sanitizeCommand.js";
 
 const logger = new AppLogger();
-const state = new AppState();
-const commandsHandler = new CommandsHandler({ logger, state });
+const data = getArgsMap(process.argv.slice(2), {
+  username: "Unknown User",
+});
+const commandsHandler = new CommandsHandler({ logger, data });
 
 // initialization
 process.chdir(os.homedir());
-logger.log(`\nWelcome to the File Manager, ${state.username}!\n`);
+logger.log(`\nWelcome to the File Manager, ${data.username}!\n`);
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-rl.on("SIGINT", () => {
-  commandsHandler.handle(".exit");
-});
+const rl = readline
+  .createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  })
+  .on("SIGINT", () => {
+    commandsHandler.handle(".exit");
+  });
 
 const getQuestion = async () => {
   const answer = await rl.question(`
 You are currently in ${process.cwd()}
-[${state.username}] # \
+[${data.username}] # \
 `);
 
-  const command = answer.toString("utf8").trim();
+  const command = sanitizeCommand(answer.toString("utf8"));
   await commandsHandler.handle(command);
 
   getQuestion();

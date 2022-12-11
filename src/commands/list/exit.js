@@ -1,6 +1,6 @@
-export const exit = ({ logger, state }) => {
+export const exit = ({ logger, data }) => {
   logger.log(
-    `\n\nThank you for using File Manager, ${state.username}, goodbye!`
+    `\n\nThank you for using File Manager, ${data.username}, goodbye!`
   );
 
   process.exit(0);

@@ -9,6 +9,9 @@ import { cp } from "./list/cp.js";
 import { rm } from "./list/rm.js";
 import { mv } from "./list/mv.js";
 import { os } from "./list/os.js";
+import { hash } from "./list/hash.js";
+import { compress } from "./list/compress.js";
+import { decompress } from "./list/decompress.js";
 
 export const COMMANDS_MAP = {
   exit,
@@ -22,7 +25,7 @@ export const COMMANDS_MAP = {
   rm,
   mv,
   os,
-  hash: "",
-  compress: "",
-  decompress: "",
+  hash,
+  compress,
+  decompress,
 };
